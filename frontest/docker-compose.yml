@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  docker-test-puppeteer:
+    container_name: docker-test-puppeteer
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '3333:3333'
+    environment:
+      - NODE_ENV=development
+
