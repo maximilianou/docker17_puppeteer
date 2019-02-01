@@ -10,7 +10,7 @@ describe("Browsing with puppeteer:", ()=> {
             ]
         });    
         const page = await browser.newPage();
-        await page.goto('https://bitbucket.org/maximilianou/'); //, {waitUntil: 'networkidle2'});    
+        await page.goto('https://bitbucket.org/maximilianou/', {waitUntil: 'domcontentloaded'}); //, {waitUntil: 'networkidle2'});    
         let textResponse = await page.evaluate(() => {
           //<a href="/maximilianou/">Maximiliano Usich</a>
           let elemCheck = document.querySelector('a[href="/maximilianou/"]');
@@ -18,7 +18,7 @@ describe("Browsing with puppeteer:", ()=> {
         });
         assert( textResponse === 'Maximiliano Usich', "[OK] Content Found" );
         browser.close();
-    });
+    }).timeout(0);;
     it("Check Not Found:", async ()=> {
         const browser = await puppeteer.launch({
             args: [
@@ -27,7 +27,7 @@ describe("Browsing with puppeteer:", ()=> {
             ]
         });    
         const page = await browser.newPage();
-        await page.goto('https://bitbucket.org/maximilianou/UPS!!');// , {waitUntil: 'networkidle2'});    
+        await page.goto('https://bitbucket.org/maximilianou/UPS!!', {waitUntil: 'domcontentloaded'});// , {waitUntil: 'networkidle2'});    
         let textResponse = await page.evaluate(() => {
           //<a href="/maximilianou/">Maximiliano Usich</a>
           let elemCheck = document.querySelector('a[href="/maximilianou/"]');
@@ -36,6 +36,6 @@ describe("Browsing with puppeteer:", ()=> {
         assert( textResponse === null, "[OK] Content Not Found" );
         browser.close();
         
-      });
+      }).timeout(0);;
   });
 });
